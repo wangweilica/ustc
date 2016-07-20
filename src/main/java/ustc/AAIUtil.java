@@ -7,23 +7,9 @@ import java.util.Arrays;
  * Date: 2016/7/20
  * Desc:
  */
-public class AAI {
+public class AAIUtil {
 
-    private static final int ARRAY_LEN = 9;
-
-    public static void main(String[] args) {
-        int[] source = {2,8,3,1,6,4,7,0,5};
-        int[] target = {1,2,3,8,0,4,7,6,5};
-        System.out.println(hasSolution(source,target));
-//        Arrays.stream(px(source)).forEach(n->System.out.print(n+","));
-    }
-
-    public static void resolve(int[] source,int[] target) {
-        if (source.length ==  ARRAY_LEN && target.length == ARRAY_LEN) {
-
-
-        }
-    }
+    protected static final int ARRAY_LEN = 9;
 
     /**
      * 判断奇偶性是否一致
@@ -63,7 +49,7 @@ public class AAI {
      * @param target 目标状态
      * @return boolean
      */
-    private static boolean hasSolution(int[] source,int[] target) {
+    public static boolean hasSolution(int[] source,int[] target) {
         if (source.length ==  ARRAY_LEN && target.length == ARRAY_LEN) {
             int t = Arrays.stream(px(source)).sum();//初试状态px求和
             int r = Arrays.stream(px(target)).sum();// 目标状态px求和
