@@ -1,4 +1,4 @@
-package ustc;
+package ustc.AAI;
 
 import java.util.Arrays;
 
@@ -11,6 +11,32 @@ public class AAIUtil {
 
     protected static final int ARRAY_LEN = 9;
 
+    /**
+     * 判断是否有解
+     * @param source 原始状态
+     * @param target 目标状态
+     * @return boolean
+     */
+    public static boolean hasSolution(int[] source,int[] target) {
+        if (source.length ==  ARRAY_LEN && target.length == ARRAY_LEN) {
+            int t = Arrays.stream(px(source)).sum();//初试状态px求和
+            int r = Arrays.stream(px(target)).sum();// 目标状态px求和
+            return judgeParity(r,t);
+        }
+        return false;
+    }
+
+    public static int calculate(int[] source, int[] target) {
+        int distance = 0;
+        for (int i = 0;i<ARRAY_LEN;i++) {
+            for (int j=0;j<ARRAY_LEN;j++) {
+                if (target[j] == source[i]) {
+                    break;
+                }
+            }
+        }
+        return distance;
+    }
     /**
      * 判断奇偶性是否一致
      * @param r r
@@ -42,20 +68,4 @@ public class AAIUtil {
         }
         return px;
     }
-
-    /**
-     * 判断是否有解
-     * @param source 原始状态
-     * @param target 目标状态
-     * @return boolean
-     */
-    public static boolean hasSolution(int[] source,int[] target) {
-        if (source.length ==  ARRAY_LEN && target.length == ARRAY_LEN) {
-            int t = Arrays.stream(px(source)).sum();//初试状态px求和
-            int r = Arrays.stream(px(target)).sum();// 目标状态px求和
-            return judgeParity(r,t);
-        }
-        return false;
-    }
-
 }

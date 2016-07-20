@@ -1,4 +1,4 @@
-package ustc;
+package ustc.AAI;
 
 /**
  * Author: Wangwei
