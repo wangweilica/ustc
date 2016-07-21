@@ -31,4 +31,10 @@ public class Entity {
         return flag;
     }
 
+    public static void main(String[] args) {
+        int i = 0;
+        int index = 3;
+        int d = Math.abs(i/3-index/3)+Math.abs(i%3-index%3);
+        System.out.println(d);
+    }
 }

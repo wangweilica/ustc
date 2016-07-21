@@ -52,7 +52,6 @@ public class EightNum {
         targetEntity.hvalue = calcHValue(targetEntity);
     }
 
-
     public void reslove() {
         int numcount = 1;
         Entity getOfOpen = null;
@@ -128,7 +127,8 @@ public class EightNum {
      * @return int
      */
     private int calcHValue(Entity status) {
-        return calcWxHValue(status);
+//        return calcWxHValue(status);
+        return calcPxHValue(status);
     }
 
     /**
@@ -148,12 +148,30 @@ public class EightNum {
 
     /**
      *  启发函数：H(n) = P(n)每一个将牌与其目标位置之间距离的(不考虑夹在其间的将牌)总和
+     *  曼哈顿距离|x1-x2| + |y1-y2|
      * @param status 状态
      * @return int
      */
-    @SuppressWarnings("unused")
     private int calcPxHValue(Entity status) {
-        return 0;
+        int i, distances = 0;
+        for (i = 0; i < 9; i++) {
+            if (status.num[i]!=0) {
+                int index = indexOf(target, status.num[i]);// 目标数字在target中位置
+                int distance = Math.abs(i/3-index/3)+Math.abs(i%3-index%3);
+                distances += distance;
+            }
+        }
+        return distances;
+    }
+
+    private int indexOf(int[] array, int target) {
+        int len = array.length;
+        for (int i = 0; i < len; i++) {
+            if (target == array[i]){
+                return i;
+            }
+        }
+        return -1;
     }
 
     //将某个状态加入到open表中，需要按非递减排序的
