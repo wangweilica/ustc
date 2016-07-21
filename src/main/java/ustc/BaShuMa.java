@@ -92,6 +92,7 @@ public class BaShuMa {
 	}
 
 	public static void main(String[] args) {
+		long start = System.currentTimeMillis();
 		Node n = new Node(0, 2);
 		n.getState()[0][0] = 1;
 		n.getState()[0][1] = 2;
@@ -135,6 +136,7 @@ public class BaShuMa {
 				break;
 			}
 		}
+		System.out.println("cost:"+(System.currentTimeMillis()-start)+"毫秒");
 	}
 	// 打印状态节点的对应的八数码状态
 	public static void printState(Node node) {
