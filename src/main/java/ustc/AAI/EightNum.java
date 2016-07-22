@@ -16,22 +16,16 @@ public class EightNum {
 
     // 统计信息
     int expand = 0,generate = 0;
+    private static Heuristic h;
     /**
      * 构造方法
      * @param start 初始状态
      * @param target 目标状态
      */
-    public EightNum(int[] start, int[] target){
+    public EightNum(int[] start, int[] target, Heuristic h){
         this.start = start;
         this.target = target;
-    }
-
-    public static void main(String[] args) {
-        int[] start = {2,8,3,1,6,4,7,0,5};
-        int[] target = {1,2,3,8,0,4,7,6,5};
-        long startTime = System.currentTimeMillis();
-        new EightNum(start,target).reslove();
-        System.out.println("耗时:" + (System.currentTimeMillis()-startTime) + "毫秒");
+        this.h = h;
     }
 
     private void init() {
@@ -68,9 +62,9 @@ public class EightNum {
             closed.add(getOfOpen);
             open.remove(0);//移去加入到closed表中的结点
 
-            System.out.print("第" + numcount++ + "个状态(g="+getOfOpen.gvalue+",h="+getOfOpen.hvalue+",f="+getOfOpen.fvalue+"):");
-            outputStatus(getOfOpen);
-            System.out.println();
+//            System.out.print("第" + numcount++ + "个状态(g="+getOfOpen.gvalue+",h="+getOfOpen.hvalue+",f="+getOfOpen.fvalue+"):");
+//            outputStatus(getOfOpen);
+//            System.out.println();
             if (getOfOpen.equals(targetEntity)) {
                 flag = true;
                 break;
@@ -117,7 +111,7 @@ public class EightNum {
         if (flag) {// 搜索到目标状态
             System.out.println("*************************************");
             System.out.println("路径长度为:" + getOfOpen.gvalue+"，扩展节点数："+expand+",生成节点数"+generate);
-//            getPath(getOfOpen);
+            getPath(getOfOpen);
         }
     }
 
@@ -127,8 +121,13 @@ public class EightNum {
      * @return int
      */
     private int calcHValue(Entity status) {
-//        return calcWxHValue(status);
-        return calcPxHValue(status);
+        switch (h) {
+            case NOT_IN_POSITION:
+                return calcWxHValue(status);
+            case MANHATTAN_DISTANCE:
+                return calcPxHValue(status);
+            default:return 0;// 无启发信息
+        }
     }
 
     /**
@@ -288,7 +287,7 @@ public class EightNum {
     }
 
     //得到路径
-    /*private void getPath(Entity status) {
+    private void getPath(Entity status) {
         int deepnum = status.gvalue;
         if (status.parent != null) {
             getPath(status.parent);
@@ -296,7 +295,7 @@ public class EightNum {
         System.out.println("第" + deepnum + "层状态为:");
         deepnum--;
         outputStatus(status);
-    }*/
+    }
 
     //输出状态
     private void outputStatus(Entity status) {
