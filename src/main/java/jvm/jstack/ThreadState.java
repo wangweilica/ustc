@@ -8,7 +8,7 @@ public class ThreadState {
 
     public static void blocked() {
         final Object lock = new Object();
-        new Thread() {
+        new Thread("work-0") {
             public void run() {
                 synchronized (lock) {
                     System.out.println("i got lock, but don't release");
@@ -24,6 +24,7 @@ public class ThreadState {
 
         synchronized (lock) {
             try {
+                System.out.println("main thread got the lock");
                 Thread.sleep(30 * 1000);
             } catch (InterruptedException e) {
             }
